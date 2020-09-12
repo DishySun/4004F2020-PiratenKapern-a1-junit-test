@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import entity.Dice;
+import game.OneTurnScoreChange;
 import game.Theme.Normal;
 
 public class NormalTest {
@@ -13,7 +14,7 @@ public class NormalTest {
 	@Test
 	public void test1() {
 		//no coin/diamond bonus (row 2-10)
-		System.out.print("test 1: ");
+		System.out.println("test 1: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {
@@ -30,7 +31,7 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
 	}
@@ -38,7 +39,7 @@ public class NormalTest {
 	@Test
 	public void test2() {
 		//with coin/diamond bonus (row 11-20)
-		System.out.print("\ntest 2: ");
+		System.out.println("\ntest 2: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {
@@ -56,7 +57,7 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
 	}
@@ -64,7 +65,7 @@ public class NormalTest {
 	@Test
 	public void test3() {
 		//coin/diamond oak + bonus (row 21-32)
-		System.out.print("\ntest 3: ");
+		System.out.println("\ntest 3: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {
@@ -84,15 +85,16 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
+			assertTrue(n.scoreCalculation(map, counts[i][7]).getRange() == OneTurnScoreChange.Range.SELF); 
 		}
 	}
 	
 	@Test
 	public void test4() {
 		//skulls from card(row34-38)
-		System.out.print("\ntest 4: ");
+		System.out.println("\ntest 4: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {
@@ -105,7 +107,7 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
 	}
