@@ -8,7 +8,7 @@ public class Dice {
 		SKULL,
 		MONKEY,
 		PARROT,
-		KNIFE,
+		SWORD,
 		COIN,
 		DIAMOND;
 	}
@@ -28,6 +28,7 @@ public class Dice {
 		if (this.lock) return;
 		Random r = new Random();
 		this.face = Face.values()[r.nextInt(6)]; 
+		if (this.face == Dice.Face.SKULL) this.lock();
 	}
 	
 	public void lock() {this.lock = true;}
