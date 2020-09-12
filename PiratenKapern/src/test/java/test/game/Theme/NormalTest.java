@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import entity.Dice;
+import game.OneTurnScoreChange;
 import game.Theme.Normal;
 
 public class NormalTest {
@@ -86,6 +87,7 @@ public class NormalTest {
 			}
 			System.out.print("["+i+"]");
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
+			assertTrue(n.scoreCalculation(map, counts[i][7]).getRange() == OneTurnScoreChange.Range.SELF); 
 		}
 	}
 	
