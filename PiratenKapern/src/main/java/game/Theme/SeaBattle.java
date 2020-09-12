@@ -8,7 +8,7 @@ import game.OneTurnScoreChange;
 public class SeaBattle implements Theme {
 
 	@Override
-	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map) {
+	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map,int skullsFromCard) {
 		// TODO Auto-generated method stub
 		return null;
 	}

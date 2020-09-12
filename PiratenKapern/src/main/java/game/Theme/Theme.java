@@ -6,5 +6,5 @@ import entity.Dice;
 import game.OneTurnScoreChange;
 
 public interface Theme {
-	public OneTurnScoreChange scoreCalculation(HashMap<Dice.Face, Integer> map);
+	public OneTurnScoreChange scoreCalculation(HashMap<Dice.Face, Integer> map, int skullsFromCard);
 }

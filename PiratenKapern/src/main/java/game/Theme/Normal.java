@@ -9,7 +9,7 @@ import game.OneTurnScoreChange;
 public class Normal implements Theme{
 
 	@Override
-	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map) {
+	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map, int skullsFromCard) {
 		if(map.get(Dice.Face.SKULL) > 2) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF, 0);
 		int score = 0;
 		for (Dice.Face f : Dice.Face.values()) {
