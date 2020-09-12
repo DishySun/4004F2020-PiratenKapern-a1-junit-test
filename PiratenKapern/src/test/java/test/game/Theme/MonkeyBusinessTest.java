@@ -32,7 +32,7 @@ public class MonkeyBusinessTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+m.scoreCalculation(map, 0).getChange());
 			assertTrue(m.scoreCalculation(map, 0).getChange() == counts[i][6]);
 			assertTrue(m.scoreCalculation(map, 0).getRange() == OneTurnScoreChange.Range.SELF);
 		}

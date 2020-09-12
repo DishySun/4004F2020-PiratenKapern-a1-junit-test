@@ -32,7 +32,7 @@ public class SkullIslandTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print("["+i+"]");
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+s.scoreCalculation(map, 0).getChange());
 			assertTrue(s.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 			assertTrue(s.scoreCalculation(map, counts[i][7]).getRange() == OneTurnScoreChange.Range.OTHER);
 		}
