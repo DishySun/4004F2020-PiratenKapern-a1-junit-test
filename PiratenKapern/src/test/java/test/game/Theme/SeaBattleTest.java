@@ -10,7 +10,7 @@ import entity.Dice;
 import game.Theme.SeaBattle;
 
 public class SeaBattleTest {
-	//@Test
+	@Test
 	public void test_2_sabre() {
 		System.out.println("\ntest_2_sabre: ");
 		SeaBattle s = new SeaBattle(2, 100);
@@ -48,7 +48,7 @@ public class SeaBattleTest {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void test_4_sabre() {
 		System.out.println("\ntest_4_sabre: ");
 		SeaBattle s = new SeaBattle(4, 500);

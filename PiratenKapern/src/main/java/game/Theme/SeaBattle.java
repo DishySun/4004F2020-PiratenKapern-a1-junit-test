@@ -26,7 +26,6 @@ public class SeaBattle implements Theme {
 		for (Dice.Face f : Dice.Face.values()) {
 			//TODO does 3 more skulls counts for score?
 			if (f == Dice.Face.SKULL) continue;
-			System.out.println("a: "+ f + score);
 			switch(map.get(f)) {
 				case 3:
 					score += 100;
@@ -48,9 +47,7 @@ public class SeaBattle implements Theme {
 					break;
 				default: break;
 			}
-			System.out.println("b: "+ f + score);
 			if (f == Dice.Face.COIN || f == Dice.Face.DIAMOND) score += 100 * map.get(f);
-			System.out.println("c: "+ f + score);
 		}
 		//check for Full Chest
 		if (map.get(Dice.Face.SKULL) == skullsFromCard &&
