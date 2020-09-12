@@ -1,8 +1,8 @@
 # 4004F2020-PiratenKapern
 
-This project is implenmented by Haiyue Sun.
-This project is for the use of assignment for COMP 4004 Fall 2020 at Carleton University.
-
+This project is implenmented by Haiyue Sun.\n
+This project is for the use of assignment for COMP 4004 Fall 2020 at Carleton University.\n
+\n
 ####################################################
 ###     Any kind of re-upload, modification,     ###
 ###          and any commercial uses             ###
