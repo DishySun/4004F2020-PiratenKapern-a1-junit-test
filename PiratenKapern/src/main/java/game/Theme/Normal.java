@@ -5,7 +5,7 @@ import java.util.HashMap;
 import entity.Dice.Face;
 import game.OneTurnScoreChange;
 
-public class SeaBattle implements Theme {
+public class Normal implements Theme{
 
 	@Override
 	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map) {
