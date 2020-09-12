@@ -13,6 +13,7 @@ public class NormalTest {
 	@Test
 	public void test1() {
 		//no coin/diamond bonus (row 2-10)
+		System.out.print("test 1: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {{3,1,1,1,1,1,0},
@@ -27,7 +28,7 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print(i);
+			System.out.print("["+i+"]");
 			assertTrue(n.scoreCalculation(map).getChange() == counts[i][6]);
 		}
 	}
@@ -35,6 +36,7 @@ public class NormalTest {
 	@Test
 	public void test2() {
 		//with coin/diamond bonus (row 11-20)
+		System.out.print("\ntest 2: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {{1,3,1,1,1,1,300},
@@ -52,13 +54,15 @@ public class NormalTest {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print(i);
+			System.out.print("["+i+"]");
 			assertTrue(n.scoreCalculation(map).getChange() == counts[i][6]);
 		}
 	}
 
+	@Test
 	public void test3() {
 		//coin/diamond oak + bonus (row 21-32)
+		System.out.print("\ntest 3: ");
 		Normal n = new Normal();
 		HashMap<Dice.Face, Integer> map = new HashMap<Dice.Face, Integer>();
 		int[][] counts = {{1,3,1,1,1,1,300},
@@ -72,12 +76,12 @@ public class NormalTest {
 			{0,0,0,2,3,3,800},
 			{0,0,0,1,4,3,1000},
 			{0,0,0,0,4,4,1200},
-			{0,0,0,0,4,5,1400}};
+			{0,0,0,0,3,5,1400}};
 		for (int i = 0; i < 12; i++) {
 			for (int j = 0; j < 6; j++) {
 				map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.print(i);
+			System.out.print("["+i+"]");
 			assertTrue(n.scoreCalculation(map).getChange() == counts[i][6]);
 		}
 	}
