@@ -1,7 +1,7 @@
 package game;
 
 public class OneTurnScoreChange {
-	enum Range{SELF,OTHER}
+	public enum Range{SELF,OTHER}
 	private Range range;
 	private int delta;
 	

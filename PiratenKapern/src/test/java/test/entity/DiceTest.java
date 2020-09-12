@@ -1,7 +1,11 @@
-package entity;
+package test.entity;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import entity.Dice;
+import entity.Dice.Face;
+
 import java.util.HashSet;
 
 public class DiceTest {
