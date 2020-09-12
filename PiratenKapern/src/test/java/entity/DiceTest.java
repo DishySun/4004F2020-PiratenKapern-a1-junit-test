@@ -16,6 +16,7 @@ public class DiceTest {
 		assertFalse(d.isLock()); //initialized to unlocked (false) as default
 	}
 	
+	@Test
 	public void test_Lock() {
 		//test for lock() and unlock() method
 		Dice d1 = new Dice();
@@ -28,6 +29,7 @@ public class DiceTest {
 		assertTrue(d1.isLock());
 	}
 	
+	@Test
 	public void test_Roll() {
 		//test for roll() method
 		HashSet<Dice.Face> set = new HashSet<Dice.Face>();
@@ -38,10 +40,21 @@ public class DiceTest {
 		for (int i = 0; i < 600; i++) {
 			d2.roll();
 			set.add(d2.getFace());
+			d2.unlock();// to prevent from got locked by rolling a skull
 		}
 		assertTrue(set.size() == 6);
 		for (Dice.Face f : Dice.Face.values()) {
 			assertTrue(set.contains(f));
+		}
+		
+		//dice will be locked after getting a skull;
+		Dice d = new Dice();
+		while(true) {
+			d.roll();
+			if (d.getFace() == Dice.Face.SKULL) {
+				assertTrue(d.isLock());
+				break;
+			} 
 		}
 		
 		//locked dice should NOT change its face
