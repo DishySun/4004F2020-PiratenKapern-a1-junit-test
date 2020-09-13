@@ -22,6 +22,7 @@ public class SeaBattle implements Theme {
 	@Override
 	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map,int skullsFromCard) {
 		if(map.get(Dice.Face.SWORD) < swordRequired) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF, reward * -1);
+		if (map.get(Dice.Face.SKULL) > 2) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF,0);
 		int score = reward;
 		for (Dice.Face f : Dice.Face.values()) {
 			//TODO does 3 more skulls counts for score?
