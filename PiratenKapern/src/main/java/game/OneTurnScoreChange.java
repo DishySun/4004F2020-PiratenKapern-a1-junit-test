@@ -12,4 +12,5 @@ public class OneTurnScoreChange {
 	
 	public Range getRange() {return this.range;}
 	public int getChange() {return this.delta;}
+	public void applyScoreMultiplier(int multi) {this.delta *= multi;}
 }

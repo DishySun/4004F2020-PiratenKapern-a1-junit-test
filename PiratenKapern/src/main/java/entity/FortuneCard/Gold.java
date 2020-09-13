@@ -8,5 +8,7 @@ public class Gold implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.gold();
 	}
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }

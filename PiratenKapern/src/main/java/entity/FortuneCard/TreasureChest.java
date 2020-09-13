@@ -8,5 +8,8 @@ public class TreasureChest implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.enableChest();
 	}
+	
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }

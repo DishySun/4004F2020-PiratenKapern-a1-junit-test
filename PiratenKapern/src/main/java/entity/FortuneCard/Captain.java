@@ -9,4 +9,7 @@ public class Captain implements FortuneCard {
 		turn.captain();
 	}
 
+	@Override
+	public int getSkullsFromCard() {return 0;}
+
 }

@@ -13,5 +13,8 @@ public class Skull implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.skull(skullNumber);
 	}
+	
+	@Override
+	public int getSkullsFromCard() {return skullNumber;}
 
 }

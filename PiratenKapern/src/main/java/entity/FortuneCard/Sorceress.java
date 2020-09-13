@@ -8,5 +8,8 @@ public class Sorceress implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.sorceress();
 	}
+	
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }

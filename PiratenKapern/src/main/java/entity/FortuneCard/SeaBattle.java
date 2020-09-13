@@ -17,5 +17,8 @@ public class SeaBattle implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.seaBattle(new game.Theme.SeaBattle(swordRequired, reward));
 	}
+	
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }

@@ -8,5 +8,7 @@ public class MonkeyBusiness implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.monkeyBusiness();
 	}
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }

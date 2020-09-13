@@ -8,5 +8,8 @@ public class Diamond implements FortuneCard {
 	public void effect(Turn turn) {
 		turn.diamond();
 	}
+	
+	@Override
+	public int getSkullsFromCard() {return 0;}
 
 }
