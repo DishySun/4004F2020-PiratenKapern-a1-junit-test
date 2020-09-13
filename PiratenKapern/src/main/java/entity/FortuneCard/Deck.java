@@ -8,9 +8,9 @@ public class Deck {
 	private Stack<FortuneCard> deck;
 	private ArrayList<FortuneCard> discardPile;
 	
-	private final int TWO_BATTLE_REWARD = 100;
-	private final int THREE_BATTLE_REWARD = 200;
-	private final int FOUR_BATTLE_REWARD = 500;
+	private final int TWO_BATTLE_REWARD = 300;
+	private final int THREE_BATTLE_REWARD = 500;
+	private final int FOUR_BATTLE_REWARD = 1000;
 	
 	public Deck() {
 		deck = new Stack<FortuneCard>();
