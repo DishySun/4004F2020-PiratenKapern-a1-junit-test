@@ -7,6 +7,7 @@ import org.junit.Test;
 import entity.Dice;
 import entity.FortuneCard.*;
 import game.Turn;
+import game.Theme.*;
 
 public class TurnTest {
 
@@ -116,10 +117,10 @@ public class TurnTest {
 		Turn t;
 		//test for treasure chest fortune card
 		t = new Turn();
-		FortuneCard card = new SeaBattle(2,300);
+		FortuneCard card = new entity.FortuneCard.SeaBattle(2,300);
 		t.setCard(card);
 		assertTrue(t.getTheme() instanceof game.Theme.SeaBattle);
-		assertTrue(t.getFortuneCard() instanceof SeaBattle);
+		assertTrue(t.getFortuneCard() instanceof entity.FortuneCard.SeaBattle);
 			//others should not change
 		assertTrue(t.getscoreMultiplier() == 1); 		//scoreMultiplier = 1
 		assertTrue(t.getskullRerollCount() == 0);		//skullRerollCounter = 0
@@ -194,10 +195,10 @@ public class TurnTest {
 		Turn t;
 		//test for treasure chest fortune card
 		t = new Turn();
-		FortuneCard card = new MonkeyBusiness();
+		FortuneCard card = new entity.FortuneCard.MonkeyBusiness();
 		t.setCard(card);
 		assertTrue(t.getTheme() instanceof game.Theme.MonkeyBusiness);
-		assertTrue(t.getFortuneCard() instanceof MonkeyBusiness);
+		assertTrue(t.getFortuneCard() instanceof entity.FortuneCard.MonkeyBusiness);
 			//others should not change
 		assertTrue(t.getscoreMultiplier() == 1); 		//scoreMultiplier = 1
 		assertTrue(t.getskullRerollCount() == 0);		//skullRerollCounter = 0
@@ -239,5 +240,92 @@ public class TurnTest {
 			assertFalse(d.isLock());
 		}
 		assertTrue(t.getChest() == null);
+	}
+	
+	/*4 case after first roll
+		1. 2 or less skulls - No change i.e. theme still Normal, continue
+		2. 3 skulls - disqualified and end turn TODO Sorceress card may change this
+		3. 4 or more skulls - go to Skull Island
+		4. 4 or more skulls but already engaged in SeaBattle - no change i.e. disqualified
+	*/
+	@Test 
+	public void test_firstRoll_1() {
+		//no change and continue
+		while(true) {
+			Turn t = new Turn();
+			FortuneCard card = new Diamond();
+			t.setCard(card);
+			int i = 0;
+			Boolean bool = t.firstRoll();
+			//count for skulls
+			for (Dice d : t.getHand()) {
+				if (d.getFace() == Dice.Face.SKULL) i++;
+			}
+			if (i > 2) continue;
+			//test case:
+			assertTrue(t.getTheme() instanceof Normal);
+			assertFalse(bool);
+			break;
+		}
+	}
+	
+	@Test
+	public void test_fitstRoll_2() {
+		// exact 3 skulls - disqualified from turn
+		while(true) {
+			Turn t = new Turn();
+			FortuneCard c = new Gold();
+			t.setCard(c);
+			int i = 0;
+			Boolean bool = t.firstRoll();
+			for (Dice d : t.getHand()) {
+				if (d.getFace() == Dice.Face.SKULL) i++;
+			}
+			if (i != 3) continue;
+			//test case:
+			assertTrue(t.getTheme() instanceof Normal);
+			assertTrue(bool);
+			break;
+		}
+	}
+	
+	@Test
+	public void test_fitstRoll_3() {
+		// 4 or more skulls - theme change to Skull Island can continue
+		while(true) {
+			Turn t = new Turn();
+			FortuneCard c = new Skull(2);
+			t.setCard(c);
+			int i = 2;
+			Boolean bool = t.firstRoll();
+			for (Dice d : t.getHand()) {
+				if (d.getFace() == Dice.Face.SKULL) i++;
+			}
+			if (i < 4) continue;
+			//test case:
+			assertTrue(t.getTheme() instanceof SkullIsland);
+			assertFalse(bool);
+			break;
+		}
+	}
+	
+	@Test
+	public void test_fitstRoll_4() {
+		// 4 or more skulls, but SeaBattle Card before - end turn
+		while(true) {
+			Turn t = new Turn();
+			FortuneCard c = new entity.FortuneCard.SeaBattle(2, 300);
+			t.setCard(c);
+			int i = 2;
+			Boolean bool = t.firstRoll();
+			for (Dice d : t.getHand()) {
+				if (d.getFace() == Dice.Face.SKULL) i++;
+			}
+			if (i < 4) continue;
+			//test case:
+			assertTrue(t.getTheme() instanceof game.Theme.SeaBattle);
+			assertTrue(bool);
+			break;
+		}
 	}
 }
