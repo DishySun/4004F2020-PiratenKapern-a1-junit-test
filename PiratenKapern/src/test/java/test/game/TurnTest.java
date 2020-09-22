@@ -2,6 +2,8 @@ package test.game;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import entity.Dice;
@@ -244,7 +246,7 @@ public class TurnTest {
 	
 	/*4 case after first roll
 		1. 2 or less skulls - No change i.e. theme still Normal, continue
-		2. 3 skulls - disqualified and end turn TODO Sorceress card may change this
+		2. 3 skulls - disqualified and end turn
 		3. 4 or more skulls - go to Skull Island
 		4. 4 or more skulls but already engaged in SeaBattle - no change i.e. disqualified
 	*/
@@ -316,7 +318,7 @@ public class TurnTest {
 			Turn t = new Turn();
 			FortuneCard c = new entity.FortuneCard.SeaBattle(2, 300);
 			t.setCard(c);
-			int i = 2;
+			int i = 0;
 			Boolean bool = t.firstRoll();
 			for (Dice d : t.getHand()) {
 				if (d.getFace() == Dice.Face.SKULL) i++;
@@ -326,6 +328,60 @@ public class TurnTest {
 			assertTrue(t.getTheme() instanceof game.Theme.SeaBattle);
 			assertTrue(bool);
 			break;
+		}
+	}
+	
+	@Test
+	public void test_endTurn() {
+		//score calculation was tested in Theme tests
+		//this if for test correctly mapping
+		Turn t = new Turn();
+		FortuneCard c = new entity.FortuneCard.Captain();
+		t.setCard(c);
+		int skull = 0,monkey = 0, parrot = 0, sword = 0, coin = 0, diamond = 0;
+		ArrayList<Dice> ds = new ArrayList<Dice>();
+		while (ds.size() < 6) {
+			Dice d = new Dice();
+			d.roll();
+			switch (d.getFace()) {
+			case SKULL: 
+				skull++;
+				break;
+			case MONKEY:
+				monkey++;
+				break;
+			case PARROT:
+				parrot++;
+				break;
+			case SWORD:
+				sword++;
+				break;
+			case COIN:
+				coin++;
+				break;
+			case DIAMOND:
+				diamond++;
+				break;
+			default: break;
+			}
+			ds.add(d);
+		}
+		Boolean b = t.reroll(ds);
+		t.endTurn();
+		if (!b) {
+			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == skull);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.MONKEY) == monkey);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.PARROT) == parrot);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.SWORD) == sword);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.COIN) == coin);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.DIAMOND) == diamond);
+		}else {
+			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.MONKEY) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.PARROT) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.SWORD) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.COIN) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.DIAMOND) == 0);
 		}
 	}
 }
