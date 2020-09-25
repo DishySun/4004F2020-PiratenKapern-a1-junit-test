@@ -1,7 +1,6 @@
 package entity.FortuneCard;
 
 import game.Turn;
-import game.Theme.Theme;
 
 public class SeaBattle implements FortuneCard {
 	
