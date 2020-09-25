@@ -63,12 +63,8 @@ public class Deck {
 	
 	public FortuneCard draw() {
 		if (deck.size() == 0) refresh();
-		return deck.pop();
-	}
-	
-	public Boolean discard(FortuneCard c) {
-		if (c == null) return false;
+		FortuneCard c = deck.pop();
 		discardPile.add(c);
-		return true;
+		return deck.pop();
 	}
 }
