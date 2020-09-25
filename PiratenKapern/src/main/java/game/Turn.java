@@ -19,6 +19,7 @@ public class Turn {
 	private HashMap<Dice.Face, Integer> treasureInHand;
 	private ArrayList<Dice> hand;
 	private ArrayList<Dice> chest;
+	private OneTurnScoreChange delta;
 	
 	public Turn() {
 		scoreMultiplier = 1;
@@ -42,6 +43,7 @@ public class Turn {
 	public HashMap<Dice.Face, Integer> getTreasureInHand(){return treasureInHand;}
 	public ArrayList<Dice> getHand(){return hand;}
 	public ArrayList<Dice> getChest(){return chest;}
+	public OneTurnScoreChange getDelta() {return this.delta;}
 	
 	//Basic process
 	public void setCard(FortuneCard c) {
@@ -69,8 +71,7 @@ public class Turn {
 		return isDisqualified();
 	}
 	
-	public OneTurnScoreChange endTurn() {
-		OneTurnScoreChange delta;
+	public void endTurn() {
 		calculateChest();
 		if (this.isDisqualified()) delta = theme.scoreCalculation(treasureInHand, this.card.getSkullsFromCard());
 		else {
@@ -78,7 +79,6 @@ public class Turn {
 			delta = theme.scoreCalculation(treasureInHand, this.card.getSkullsFromCard());
 		}
 		delta.applyScoreMultiplier(scoreMultiplier);
-		return delta;
 	}
 	
 	//player action
