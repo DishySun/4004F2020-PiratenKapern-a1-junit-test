@@ -500,4 +500,102 @@ public class TurnTest {
 		assertEquals(t.getChest().size(),1);
 		assertEquals(t.getHand().size(), 7);
 	}
+	
+	@Test
+	public void test_Lock_Feature() {
+		Turn t = new Turn();
+		HashSet<Integer> skullIndex = new HashSet<Integer>();
+		HashSet<Integer> nonSkullIndex = new HashSet<Integer>();
+		do {
+			//to make sure at least 2 skulls or at least 2 non-skulls
+			skullIndex.clear();
+			nonSkullIndex.clear();
+			t.reroll();
+			for (int i = 0; i < 8; i++) {
+				Dice d = t.getHand().get(i);
+				if (d.isLock()) skullIndex.add(i);
+				else nonSkullIndex.add(i);
+			}
+		}while(skullIndex.size() < 2 || nonSkullIndex.size() < 2);
+		assertEquals(skullIndex.size()+nonSkullIndex.size(),8);
+		
+		//test auto filtering invalid indexes
+		skullIndex.add(10);
+		skullIndex.add(-1);
+		nonSkullIndex.add(10);
+		nonSkullIndex.add(-1);
+		int lockedNum, unlockedNum;
+		//lock all non-skull dice
+		t.lock(nonSkullIndex);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, 8);
+		assertEquals(unlockedNum, 0);
+		
+		//lock all skull dice -> nothing will be changed
+		t.lock(skullIndex);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, 8);
+		assertEquals(unlockedNum, 0);
+		
+		//unlock all non-skull dice
+		t.unlock(nonSkullIndex);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, skullIndex.size()-2);
+		assertEquals(unlockedNum, nonSkullIndex.size()-2);
+		
+		//unlock all skull dice (Fortune Card != Sorceress)
+		//nothing will be changed
+		t.unlock(skullIndex);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, skullIndex.size()-2);
+		assertEquals(unlockedNum, nonSkullIndex.size()-2);
+		
+		//set to Sorceress Fortune Card
+		t.setCard(new Sorceress());
+		assertEquals(t.getskullRerollCount(), 1);
+		
+		//unlock more than one skulls -> only one skull will be unlocked
+		t.unlock(skullIndex);
+		assertEquals(t.getskullRerollCount(), 0);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, skullIndex.size()-2-1);
+		assertEquals(unlockedNum, nonSkullIndex.size()-2+1);
+		
+		//lock a unlocked skull back
+		t.lock(skullIndex);
+		assertEquals(t.getskullRerollCount(), 1);
+		lockedNum=0;
+		unlockedNum=0;
+		for (Dice d:t.getHand()) {
+			if (d.isLock()) lockedNum++;
+			else unlockedNum++;
+		}
+		assertEquals(lockedNum, skullIndex.size()-2);
+		assertEquals(unlockedNum, nonSkullIndex.size()-2);
+	}
 }
