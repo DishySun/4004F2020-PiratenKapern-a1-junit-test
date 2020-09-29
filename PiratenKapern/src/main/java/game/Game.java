@@ -127,15 +127,32 @@ public class Game {
 	}
 	public void reroll() {
 		Turn t = turns.peek();
-		Boolean b = t.reroll();
+		int flag = t.reroll();
+		if (flag == -1) {
+			gc.sendToCurrentPlayer("You need to roll at least 2 dice.");
+			this.getCommand();
+			return;
+		}
 		gc.sendToCurrentPlayer("\n*You have rerolled:\n"+t.statString());
 		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + " has rerolled:\n"+t.statString());
-		if (b) {
+		switch(flag) {
+		case 0:
+			this.getCommand();
+			return;
+		case 1:
+			gc.sendToCurrentPlayer("\n*You have beed disqulified from the turn because you got 3 or more skulls.");
+			gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + " have beed disqulified from the turn because got 3 or more skulls.");
 			this.endTurn();
-			gc.sendToCurrentPlayer("You have rolled 3 or more skulls, your turn ends.");
-			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
+			return;
+		case 2:
+			gc.sendToCurrentPlayer("\nYou have beend disqulified from the turn because you didn't roll any skulls this reroll in Skull Island.");
+			gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+ " have beend disqulified from the turn because didn't roll any skulls this reroll in Skull Island.");
+			this.endTurn();
+			return;
+		default:
+			this.endTurn();
+			return;
 		}
-		else this.getCommand();
 	}
 	public void endTurn() {
 		Turn t = turns.peek();

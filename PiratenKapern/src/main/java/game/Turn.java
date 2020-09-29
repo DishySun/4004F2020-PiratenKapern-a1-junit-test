@@ -20,10 +20,12 @@ public class Turn {
 	private ArrayList<Dice> hand;
 	private ArrayList<Dice> chest;
 	private OneTurnScoreChange delta;
+	private int perviousSkullCount;
 	
 	public Turn() {
 		scoreMultiplier = 1;
 		skullRerollCount = 0;
+		perviousSkullCount = -1;
 		treasureInHand = new HashMap<Dice.Face,Integer>();
 		for (Dice.Face f : Dice.Face.values()) {
 			treasureInHand.put(f, 0);
@@ -87,11 +89,28 @@ public class Turn {
 		return isDisqualified();
 	}
 	
-	public Boolean reroll() {
-		for (Dice d : hand) {
-			d.roll();
+	public int reroll() {
+		//-1 - trying to roll less than 2 dice
+		// 0 - continue turn
+		// 1 - 3 or more skulls and disqualified from turn
+		// 2 - didn't roll more skulls on skull island
+		int rollCount = 0;
+		for (Dice d: hand) {
+			if (!d.isLock()) rollCount++;
 		}
-		return isDisqualified();
+		int skulls = 0;
+		if (rollCount >=2) {
+			for (Dice d : hand) {
+				d.roll();
+				if (d.getFace() == Dice.Face.SKULL)skulls++;
+			}
+			if (this.theme instanceof game.Theme.SkullIsland) {
+				if (skulls <= this.perviousSkullCount) return 2;
+				else this.perviousSkullCount = skulls;
+			}
+		}else {return -1;}
+		if (isDisqualified()) return 1;
+		else return 0;
 	}
 	
 	public void endTurn() {
