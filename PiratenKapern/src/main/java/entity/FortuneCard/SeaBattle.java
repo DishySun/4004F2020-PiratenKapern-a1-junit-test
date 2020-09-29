@@ -19,5 +19,11 @@ public class SeaBattle implements FortuneCard {
 	
 	@Override
 	public int getSkullsFromCard() {return 0;}
+	
+	@Override
+	public String toString() {return "Sea Battle (" + this.swordRequired+", " + this.reward+"): \n"
+			+ "Engage to Sea Battle, you cannot enter Island of Skull in this turn."
+			+"Collect " + this.swordRequired +" swords to get " + this.reward + " reward on score.\n"
+			+"Or lost " + this.reward + " on failure collecting swords.";}
 
 }

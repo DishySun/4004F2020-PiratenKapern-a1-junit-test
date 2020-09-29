@@ -11,4 +11,6 @@ public class Gold implements FortuneCard {
 	@Override
 	public int getSkullsFromCard() {return 0;}
 
+	@Override
+	public String toString() {return "Gold: You start your turn with one gold coin";}
 }

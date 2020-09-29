@@ -12,4 +12,6 @@ public class Diamond implements FortuneCard {
 	@Override
 	public int getSkullsFromCard() {return 0;}
 
+	@Override
+	public String toString() {return "Diamond: You start your turn with one diamond.";}
 }

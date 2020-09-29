@@ -2,8 +2,7 @@ package command;
 
 import java.util.HashSet;
 
-import game.ChestException;
-import game.Turn;
+import game.Game;
 
 public class Lock implements Command {
 	private HashSet<Integer> index;
@@ -13,8 +12,8 @@ public class Lock implements Command {
 	}
 
 	@Override
-	public void execute(Turn t) throws ChestException {
-		t.lock(index);
+	public void execute(Game g) {
+		g.lock(index);
 	}
 
 }

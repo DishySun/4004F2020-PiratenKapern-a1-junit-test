@@ -2,8 +2,7 @@ package command;
 
 import java.util.HashSet;
 
-import game.ChestException;
-import game.Turn;
+import game.Game;
 
 public class Withdraw implements Command {
 	private HashSet<Integer> index;
@@ -13,8 +12,8 @@ public class Withdraw implements Command {
 	}
 
 	@Override
-	public void execute(Turn t) throws ChestException {
-		t.moveToHand(index);
+	public void execute(Game g) {
+		g.withdraw(index);
 	}
 
 }

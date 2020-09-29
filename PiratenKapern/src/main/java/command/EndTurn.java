@@ -1,13 +1,12 @@
 package command;
 
-import game.ChestException;
-import game.Turn;
+import game.Game;
 
 public class EndTurn implements Command {
 
 	@Override
-	public void execute(Turn t) throws ChestException {
-		t.endTurn();
+	public void execute(Game g) {
+		g.endTurn();
 	}
 
 }

@@ -11,5 +11,8 @@ public class Captain implements FortuneCard {
 
 	@Override
 	public int getSkullsFromCard() {return 0;}
+	
+	@Override
+	public String toString() {return "Captain: The score you make this turn is doubled!";}
 
 }

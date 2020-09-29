@@ -11,4 +11,6 @@ public class MonkeyBusiness implements FortuneCard {
 	@Override
 	public int getSkullsFromCard() {return 0;}
 
+	@Override
+	public String toString() {return "Monkey Bussiness: Monkeys and Parrots counts as a group in this turn.";}
 }

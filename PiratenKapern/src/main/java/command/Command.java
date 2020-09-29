@@ -1,8 +1,8 @@
 package command;
 
 import game.ChestException;
-import game.Turn;
+import game.Game;
 
 public interface Command {
-	public void execute(Turn t) throws ChestException;
+	public void execute(Game g);
 }
