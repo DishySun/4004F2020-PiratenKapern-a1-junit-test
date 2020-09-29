@@ -44,6 +44,29 @@ public class Turn {
 	public ArrayList<Dice> getHand(){return hand;}
 	public ArrayList<Dice> getChest(){return chest;}
 	public OneTurnScoreChange getDelta() {return this.delta;}
+	public String statString() {
+		String result ="Hand: ";
+		for (int i = 0 ; i < hand.size(); i++) {
+			result += hand.get(i);
+			if (i < hand.size()-1) result += ", ";
+		}
+		if (this.chest == null) return result;
+		result += "\n Treasure Chest: ";
+		for (int i = 0 ; i < hand.size(); i++) {
+			result += chest.get(i);
+			if (i < chest.size()-1) result += ", ";
+		}
+		return result;
+	}
+	
+	public String chestString() {
+		String result ="";
+		for (int i = 0 ; i < hand.size(); i++) {
+			result += chest.get(i);
+			if (i < chest.size()-1) result += ", ";
+		}
+		return result;
+	}
 	
 	//Basic process
 	public void setCard(FortuneCard c) {
