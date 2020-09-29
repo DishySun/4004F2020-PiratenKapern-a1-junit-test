@@ -18,6 +18,6 @@ public class Skull implements FortuneCard {
 	public int getSkullsFromCard() {return skullNumber;}
 	
 	@Override
-	public String toString() {return "Skull: " + this.skullNumber +": You start your turn with "+ this.skullNumber + "skull(s).";}
+	public String toString() {return "Skull: " + this.skullNumber +": You start your turn with "+ this.skullNumber + " skull(s).";}
 
 }

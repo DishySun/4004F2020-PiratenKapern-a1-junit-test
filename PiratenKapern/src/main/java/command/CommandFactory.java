@@ -25,7 +25,7 @@ public class CommandFactory {
 			}
 		}
 		Command c;
-		switch(str[1]) {
+		switch(str[0]) {
 		case "roll": 
 			c = new command.Roll();
 			break;
@@ -52,12 +52,13 @@ public class CommandFactory {
 	}
 
 	public String getPrompt(Boolean haveChest ) {
-		String s= "roll: to reroll all UNLOCKED dice in your hand.\n"
-				+"lock/unlock <indexes>: to lock/unlock <indexes>(split with a space) dice in your hand.\n";
+		String s= "    roll: to reroll all UNLOCKED dice in your hand.\n"
+				+"    lock/unlock <indexes>: to lock/unlock <indexes>(split with a space) dice in your hand.\n"
+				+"    end: to end your turn and calculate score.\n";
 		if (haveChest) 
 			s += "Captain, we found a Treasure Chest. At least we will get what's in the chest even we have too many skulls this turn. How luck!\n"
-				+ "stash <indexes>: to move <indexes>(split with a space) dice to the chest. Attention, skulls can not be moved to chest.\n"
-				+ "withdraw <indexes>: to move <indexes>(split with a space) dice to your hand.";
+				+ "    stash <indexes>: to move <indexes>(split with a space) dice to the chest. Attention, skulls can not be moved to chest.\n"
+				+ "    withdraw <indexes>: to move <indexes>(split with a space) dice to your hand.\n";
 		return s;
 	}
 }

@@ -51,8 +51,8 @@ public class Turn {
 			if (i < hand.size()-1) result += ", ";
 		}
 		if (this.chest == null) return result;
-		result += "\n Treasure Chest: ";
-		for (int i = 0 ; i < hand.size(); i++) {
+		result += "\nTreasure Chest: ";
+		for (int i = 0 ; i < chest.size(); i++) {
 			result += chest.get(i);
 			if (i < chest.size()-1) result += ", ";
 		}

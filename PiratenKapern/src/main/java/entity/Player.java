@@ -5,7 +5,8 @@ public class Player {
 	private int score;
 	
 	public Player(String name) {
-		this.name = name;
+		if (name == "") this.name = "John";
+		else this.name = name;
 		this.score = 0;
 	}
 	

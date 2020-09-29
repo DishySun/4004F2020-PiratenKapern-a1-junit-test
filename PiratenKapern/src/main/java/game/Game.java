@@ -1,5 +1,6 @@
 package game;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,28 +39,28 @@ public class Game {
 	public void gameStart() {
 		String yousoro;
 		try {
-			yousoro = "*   　  "+new String("全速前進ヨーソロー！".getBytes(),"UTF-8")+"     *\n";
+			yousoro = "*      "+new String("全速前進ヨーソロー！".getBytes(),"UTF-8")+"            *";
 		} catch (UnsupportedEncodingException e) {
 			yousoro = "";
 		}
-		gc.announcement("******************************\n"
-				+ "*         GAME START         *\n"
-				+ "*      Full Sail Ahead       *\n"
-				+ yousoro
-				+ "******************************\n\n");
+		gc.announcement("******************************");
+		gc.announcement("*         GAME START         *");
+		gc.announcement("*      Full Sail Ahead       *");
+		gc.announcement(yousoro);
+		gc.announcement("******************************");
 		turnStart();
 	}
 	
 	private void turnStart() {
 		//sleep
-		gc.sendToCurrentPlayer("Your Turn");
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName()+"'s Turn");
+		gc.sendToCurrentPlayer("\n============Your Turn============");
+		gc.sendToOtherPlayer("\n============"+players.get(currentPlayer).getName()+"'s Turn============");
 		Turn t = new Turn();
 		turns.push(t);
 		FortuneCard c = deck.draw();
 		t.setCard(c);
-		gc.sendToCurrentPlayer("You have drawn " + c);
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has drawn "+ c);
+		gc.sendToCurrentPlayer("\n*You have drawn " + c);
+		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has drawn "+ c);
 		firstRoll();
 	}
 	
@@ -67,8 +68,8 @@ public class Game {
 		//sleep
 		Turn t = turns.peek();
 		Boolean b = t.firstRoll();
-		gc.sendToCurrentPlayer("Your first roll:\n"+t.statString());
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName() + "'s first roll:\n"+t.statString());
+		gc.sendToCurrentPlayer("\n*Your first roll:\n"+t.statString());
+		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + "'s first roll:\n"+t.statString());
 		if (b) {
 			gc.sendToCurrentPlayer("You have rolled 3 or more skulls, your turn ends.");
 			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
@@ -76,8 +77,6 @@ public class Game {
 		}else this.getCommand();
 		
 	}
-	
-	
 	
 	//player action
 	public void stash(HashSet<Integer> index) {
@@ -93,8 +92,8 @@ public class Game {
 			if (i >= 0 && i <t.getHand().size())
 				s += "["+i+"] ";
 		}
-		gc.sendToCurrentPlayer("You have stashed " + s + "to your Treasure Chest.\n"+t.statString());
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has stashed "+s+"to Treasure Chest\n" +t.statString());
+		gc.sendToCurrentPlayer("\n*You have stashed " + s + "to your Treasure Chest.\n"+t.statString());
+		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has stashed "+s+"to Treasure Chest\n" +t.statString());
 		this.getCommand();
 	}
 	public void withdraw(HashSet<Integer> index) {
@@ -110,27 +109,27 @@ public class Game {
 			if (i >= 0 && i <t.getHand().size())
 				s += "["+i+"] ";
 		}
-		gc.sendToCurrentPlayer("You have withdrawn " + s + "to your Treasure Chest.\n"+t.statString());
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has withdrawn "+s+"to Treasure Chest\n" +t.statString());
+		gc.sendToCurrentPlayer("\n*You have withdrawn " + s + "to your Treasure Chest.\n"+t.statString());
+		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has withdrawn "+s+"to Treasure Chest\n" +t.statString());
 		this.getCommand();
 	}
 	public void lock(HashSet<Integer> index) {
 		Turn t = turns.peek();
 		t.lock(index);
-		gc.announcement("Lock:\n"+t.statString());
+		gc.announcement("\n*Lock:\n"+t.statString());
 		this.getCommand();
 	}
 	public void unlock(HashSet<Integer> index) {
 		Turn t = turns.peek();
 		t.unlock(index);
-		gc.announcement("Unlock:\n"+t.statString());
+		gc.announcement("\n*Unlock:\n"+t.statString());
 		this.getCommand();
 	}
 	public void reroll() {
 		Turn t = turns.peek();
 		Boolean b = t.reroll();
-		gc.sendToCurrentPlayer("You have rerolled:\n"+t.statString());
-		gc.sendToOtherPlayer(players.get(currentPlayer).getName() + " has rerolled:\n"+t.statString());
+		gc.sendToCurrentPlayer("\n*You have rerolled:\n"+t.statString());
+		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + " has rerolled:\n"+t.statString());
 		if (b) {
 			this.endTurn();
 			gc.sendToCurrentPlayer("You have rolled 3 or more skulls, your turn ends.");
@@ -142,10 +141,20 @@ public class Game {
 		Turn t = turns.peek();
 		t.endTurn();
 		this.scoreChange(t.getDelta());
+		gc.sendToCurrentPlayer("\n^^^^^^^Your Turn Ends^^^^^^^");
+		gc.sendToOtherPlayer("\n^^^^^^^"+players.get(currentPlayer).getName()+"'s Turn Ends^^^^^^^");
+		this.showScore();
 		this.checkWinner();
 	}
 	
 	//end a turn
+	private void showScore() {
+		gc.announcement("\nScore: ");
+		for (Player p: players) {
+			gc.announcement("    "+p.getName()+" -- " + p.getScore());
+		}
+	}
+	
 	private void checkWinner() {
 		if (this.winnerRound == -1) {
 			if (players.get(currentPlayer).getScore() >= this.WINNING_SCORE) this.winnerRound = players.size()-2;
@@ -176,14 +185,15 @@ public class Game {
 		cf = new CommandFactory(this);
 		Turn t = turns.peek();
 		String s = cf.getPrompt(t.getChest() != null);
-		gc.sendToCurrentPlayer("Captain, is's our time!\n"+ s +"\nWhat are we doing next?");
+			gc.getCommand("\n*Captain, it's our time!\n"+ s +"What are we doing next?");
 	}
 	
 	public void reEnterCommand() {
 		Turn t = turns.peek();
 		String s = cf.getPrompt(t.getChest() != null);
-		gc.sendToCurrentPlayer("Captain, I can't understand your command.\n"
-				+ s + "\nPleaser enter again: ");
+			gc.getCommand("\n*Captain, I can't understand your command.\n"
+					+ s + "\nPleaser enter again: ");
+		
 	}
 	
 	public void executeCommand(Command c) {
@@ -196,11 +206,11 @@ public class Game {
 		if (delta.getRange() == OneTurnScoreChange.Range.SELF) {
 			players.get(currentPlayer).scoreChange(delta.getChange());
 			if (delta.getChange() < 0) {
-				gc.sendToCurrentPlayer("You have lost " + delta.getChange()+" score.");
-				gc.sendToCurrentPlayer(players.get(currentPlayer).getName() + " has lost " + delta.getChange()+" score.");
+				gc.sendToCurrentPlayer("\n*You have lost " + delta.getChange()+" score.");
+				gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + " has lost " + delta.getChange()+" score.");
 			}else {
-				gc.sendToCurrentPlayer("You have gain " + delta.getChange()+" score.");
-				gc.sendToCurrentPlayer(players.get(currentPlayer).getName() + " has gain " + delta.getChange()+" score.");
+				gc.sendToCurrentPlayer("\nYou have gain " + delta.getChange()+" score.");
+				gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + " has gain " + delta.getChange()+" score.");
 			}
 		}else {
 			for (int i = 0; i < players.size();i++) {
@@ -219,4 +229,5 @@ public class Game {
 	}
 	
 	public CommandFactory getCommandFactory() {return this.cf;}
+	public int getCurrentPlayer() {return this.currentPlayer;}
 }
