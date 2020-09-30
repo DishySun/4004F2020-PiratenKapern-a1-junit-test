@@ -37,8 +37,11 @@ public class Server{
 	
 	public void announcement(String msg) {
 		for (Player p : sockets.keySet()) {
-			sockets.get(p).send(msg);
+			PlayerSocket pss =sockets.get(p);
+			pss.send(msg);
+			if (msg.equals("end game")) pss.shutdown();
 		}
+		
 	}
 
 	public void sendTo(String msg, Player p) {

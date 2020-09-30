@@ -165,7 +165,7 @@ public class Game {
 	}
 	
 	//end a turn
-	private void showScore() {
+	public void showScore() {
 		gc.announcement("\nScore: ");
 		for (Player p: players) {
 			gc.announcement("    "+p.getName()+" -- " + p.getScore());
@@ -194,9 +194,7 @@ public class Game {
 	
 	private void announceWinner(Player p) {
 		gc.announceWinner(p);
-	}
-	
-	
+	}	
 
 	private void getCommand() {
 		cf = new CommandFactory(this);

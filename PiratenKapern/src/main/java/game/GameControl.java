@@ -45,7 +45,9 @@ public class GameControl {
 	
 	public void announceWinner(Player p) {
 		// TODO Auto-generated method stub
-		
+		this.announcement("\n*****" + p.getName() + " has won the game!*****\n");
+		this.game.showScore();
+		this.announcement("game end");
 	}
 
 	public void startGame() {
