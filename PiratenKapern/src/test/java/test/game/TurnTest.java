@@ -368,9 +368,9 @@ public class TurnTest {
 			}
 			ds.add(d);
 		}
-		Boolean b = t.reroll(ds);
+		int b = t.reroll(ds);
 		t.endTurn();
-		if (!b) {
+		if (b == 0) {
 			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == skull);
 			assertTrue(t.getTreasureInHand().get(Dice.Face.MONKEY) == monkey);
 			assertTrue(t.getTreasureInHand().get(Dice.Face.PARROT) == parrot);

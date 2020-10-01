@@ -10,9 +10,10 @@ public class Normal implements Theme{
 
 	@Override
 	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map, int skullsFromCard) {
-		if(map.get(Dice.Face.SKULL) - skullsFromCard > 2) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF, 0);
 		int score = 0;
+		int totalDice = 0;
 		for (Dice.Face f : Dice.Face.values()) {
+			totalDice+= map.get(f);
 			if (f == Dice.Face.SKULL) continue;
 			switch (map.get(f)) {
 				case 3:
@@ -46,6 +47,7 @@ public class Normal implements Theme{
 				System.out.println(f+" bouns. +"+map.get(f)+" * 100");
 			}
 		}
+		if (totalDice < 8) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF, 0);
 		//check for Full Chest
 		if (map.get(Dice.Face.SKULL) == skullsFromCard &&
 			(map.get(Dice.Face.MONKEY) == 0 || map.get(Dice.Face.MONKEY) > 2) &&

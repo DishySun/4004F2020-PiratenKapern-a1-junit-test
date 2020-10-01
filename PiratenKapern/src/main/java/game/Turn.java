@@ -236,8 +236,40 @@ public class Turn {
 	
 	//extra functions for extra functionalities
 	//record & watch replay
-	public Boolean reroll(ArrayList<Dice> d) {
-		this.hand = d;
-		return this.isDisqualified();
+	public Boolean firstRoll(ArrayList<Dice> dice) {
+		int skulls = treasureInHand.get(Dice.Face.SKULL);
+		this.hand = dice;
+		for (Dice d : hand) {
+			if (d.getFace() == Dice.Face.SKULL) skulls++;
+		}
+		//Skull Island check
+		if (skulls > 3 && !(theme instanceof game.Theme.SeaBattle)) {
+			theme = new SkullIsland();
+		}
+		return isDisqualified();
+	}
+	
+	public int reroll(ArrayList<Dice> dice) {
+		//-1 - trying to roll less than 2 dice
+		// 0 - continue turn
+		// 1 - 3 or more skulls and disqualified from turn
+		// 2 - didn't roll more skulls on skull island
+		int rollCount = 0;
+		for (Dice d: hand) {
+			if (!d.isLock()) rollCount++;
+		}
+		this.hand = dice;
+		int skulls = 0;
+		if (rollCount >=2) {
+			for (Dice d : hand) {
+				if (d.getFace() == Dice.Face.SKULL)skulls++;
+			}
+			if (this.theme instanceof game.Theme.SkullIsland) {
+				if (skulls <= this.perviousSkullCount) return 2;
+				else this.perviousSkullCount = skulls;
+			}
+		}else {return -1;}
+		if (isDisqualified()) return 1;
+		else return 0;
 	}
 }

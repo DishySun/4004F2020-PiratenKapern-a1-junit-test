@@ -10,10 +10,11 @@ public class MonkeyBusiness implements Theme {
 	
 	@Override
 	public OneTurnScoreChange scoreCalculation(HashMap<Face, Integer> map,int skullsFromCard) {
-		if (map.get(Dice.Face.SKULL) > 2) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF,0);
 		int nakama = 0;
 		int score = 0;
+		int totalDice = 0;
 		for (Dice.Face f : Dice.Face.values()) {
+			totalDice += map.get(f);
 			if (f == Dice.Face.SKULL) continue;
 			if (f == Dice.Face.MONKEY || f == Dice.Face.PARROT) {
 				nakama += map.get(f);
@@ -42,6 +43,7 @@ public class MonkeyBusiness implements Theme {
 			}
 			if (f == Dice.Face.COIN || f == Dice.Face.DIAMOND) score += 100 * map.get(f);
 		}
+		if (totalDice < 8) return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF, 0);
 		//count kinds of nakama
 		switch(nakama) {
 			case 3:
