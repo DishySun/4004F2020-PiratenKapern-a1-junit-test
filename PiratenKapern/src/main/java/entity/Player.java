@@ -13,5 +13,8 @@ public class Player {
 	public void setName(String name) {this.name = name;}
 	public String getName() {return this.name;}
 	public int getScore() {return this.score;}
-	public void scoreChange(int delta) {this.score += delta;}
+	public void scoreChange(int delta) {
+		this.score += delta;
+		if (this.score < 0) this.score = 0;
+	}
 }

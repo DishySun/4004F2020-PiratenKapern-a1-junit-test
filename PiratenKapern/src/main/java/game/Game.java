@@ -74,8 +74,8 @@ public class Game {
 			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
 			this.endTurn();
 		}else {
-			gc.sendToCurrentPlayer("Welcome to Skull Island! Get as much skulls as you can to reduce others' score!");
-			gc.sendToOtherPlayer(players.get(currentPlayer) + " have entered Skull Island. You score gonna be... :(");
+			gc.sendToCurrentPlayer("\n*Welcome to Skull Island! Get as much skulls as you can to reduce others' score!");
+			gc.sendToOtherPlayer("\n*"+players.get(currentPlayer) + " have entered Skull Island. You score gonna be... :(");
 			this.getCommand();
 		}
 	}

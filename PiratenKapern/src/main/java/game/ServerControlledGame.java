@@ -46,12 +46,12 @@ public class ServerControlledGame extends Game{
 		gc.sendToCurrentPlayer("\n*Your first roll:\n"+t.statString());
 		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName() + "'s first roll:\n"+t.statString());
 		if (b) {
-			gc.sendToCurrentPlayer("You have rolled 3 or more skulls, your turn ends.");
-			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
+			gc.sendToCurrentPlayer("\n*You have rolled 3 or more skulls, your turn ends.");
+			gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
 			this.endTurn();
 		}else {
-			gc.sendToCurrentPlayer("Welcome to Skull Island! Get as much skulls as you can to reduce others' score!");
-			gc.sendToOtherPlayer(players.get(currentPlayer) + " have entered Skull Island. You score gonna be... :(");
+			gc.sendToCurrentPlayer("\n*Welcome to Skull Island! Get as much skulls as you can to reduce others' score!");
+			gc.sendToOtherPlayer("\n*"+players.get(currentPlayer) + " have entered Skull Island. You score gonna be... :(");
 			getCommand();
 		}
 	}
@@ -59,7 +59,6 @@ public class ServerControlledGame extends Game{
 	public void reroll() {
 		Turn t = turns.peek();
 		int flag = t.reroll(gc.cheatGetDice());
-		System.err.println("flag:" + flag);
 		if (flag == -1) {
 			gc.sendToCurrentPlayer("You need to roll at least 2 dice.");
 			this.getCommand();
