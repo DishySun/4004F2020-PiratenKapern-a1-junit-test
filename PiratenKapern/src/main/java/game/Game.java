@@ -176,7 +176,10 @@ public class Game {
 	
 	private void checkWinner() {
 		if (this.winnerRound == -1) {
-			if (players.get(currentPlayer).getScore() >= this.WINNING_SCORE) this.winnerRound = players.size()-2;
+			if (players.get(currentPlayer).getScore() >= this.WINNING_SCORE) {
+				this.winnerRound = players.size()-2;
+				gc.sendToOtherPlayer(players.get(currentPlayer) + " has reach winning point "+this.WINNING_SCORE+"\nUse your next turn to catch him/her, or you lose!");
+			}
 		}else if (this.winnerRound == 0) {
 			int max = 0;
 			Player winner = null;
