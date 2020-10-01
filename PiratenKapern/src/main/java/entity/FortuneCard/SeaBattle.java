@@ -6,10 +6,26 @@ public class SeaBattle implements FortuneCard {
 	
 	private int swordRequired;
 	private int reward;
+	private final int TWO_BATTLE_REWARD = 300;
+	private final int THREE_BATTLE_REWARD = 500;
+	private final int FOUR_BATTLE_REWARD = 1000;
 	
-	public SeaBattle(int require, int reward) {
+	public SeaBattle(int require) {
 		this.swordRequired = require;
-		this.reward = reward;
+		switch (require) {
+		case 2:
+			this.reward = TWO_BATTLE_REWARD;
+			break;
+		case 3:
+			this.reward = THREE_BATTLE_REWARD;
+			break;
+		case 4:
+			this.reward = FOUR_BATTLE_REWARD;
+			break;
+		default:
+			System.err.println("Invalid SeeBattle sword");
+			System.exit(-1);
+		}
 	}
 	
 	@Override

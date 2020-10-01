@@ -121,7 +121,7 @@ public class TurnTest {
 		Turn t;
 		//test for treasure chest fortune card
 		t = new Turn();
-		FortuneCard card = new entity.FortuneCard.SeaBattle(2,300);
+		FortuneCard card = new entity.FortuneCard.SeaBattle(2);
 		t.setCard(card);
 		assertTrue(t.getTheme() instanceof game.Theme.SeaBattle);
 		assertTrue(t.getFortuneCard() instanceof entity.FortuneCard.SeaBattle);
@@ -318,7 +318,7 @@ public class TurnTest {
 		// 4 or more skulls, but SeaBattle Card before - end turn
 		while(true) {
 			Turn t = new Turn();
-			FortuneCard c = new entity.FortuneCard.SeaBattle(2, 300);
+			FortuneCard c = new entity.FortuneCard.SeaBattle(2);
 			t.setCard(c);
 			int i = 0;
 			Boolean bool = t.firstRoll();

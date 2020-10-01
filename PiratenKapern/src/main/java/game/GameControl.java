@@ -94,18 +94,17 @@ public class GameControl {
 			case "tc":
 				return new entity.FortuneCard.TreasureChest();
 			case "sb":
-				if (arg.length != 3) {
-					System.err.println("Format error: SB <int: sword require> <int: reward>");
+				if (arg.length != 2) {
+					System.err.println("Format error: SB <int: sword require>");
 					continue;
 				}
 				try {
 					int i = Integer.parseInt(arg[1]);
-					if (i > 5) {
-						System.err.println("sb: too many swords required.");
+					if (i > 4 || i < 2) {
+						System.err.println("sb: sword required should be 2-4.");
 						continue;
 						}
-					int j = Integer.parseInt(arg[2]);
-					return new entity.FortuneCard.SeaBattle(i, j);
+					return new entity.FortuneCard.SeaBattle(i);
 				}catch(NumberFormatException e) {
 					System.err.println("need 2 integers after \"sb\"");
 					continue;

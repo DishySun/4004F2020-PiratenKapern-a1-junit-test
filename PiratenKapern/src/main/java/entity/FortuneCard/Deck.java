@@ -8,10 +8,6 @@ public class Deck {
 	private Stack<FortuneCard> deck;
 	private ArrayList<FortuneCard> discardPile;
 	
-	private final int TWO_BATTLE_REWARD = 300;
-	private final int THREE_BATTLE_REWARD = 500;
-	private final int FOUR_BATTLE_REWARD = 1000;
-	
 	public Deck() {
 		deck = new Stack<FortuneCard>();
 		discardPile = new ArrayList<FortuneCard>();
@@ -44,9 +40,9 @@ public class Deck {
 		}
 		for (int i = 0; i < 2; i++) {
 			deck.push(new Skull(2));
-			deck.push(new SeaBattle(2,TWO_BATTLE_REWARD));
-			deck.push(new SeaBattle(3,THREE_BATTLE_REWARD));
-			deck.push(new SeaBattle(4,FOUR_BATTLE_REWARD));
+			deck.push(new SeaBattle(2));
+			deck.push(new SeaBattle(3));
+			deck.push(new SeaBattle(4));
 		}
 		shuffle();
 	}
