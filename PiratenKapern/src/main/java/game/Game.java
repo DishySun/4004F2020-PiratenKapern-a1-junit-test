@@ -1,6 +1,5 @@
 package game;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,15 +12,15 @@ import entity.FortuneCard.Deck;
 import entity.FortuneCard.FortuneCard;
 
 public class Game {	
-	private ArrayList<Player> players;
+	protected ArrayList<Player> players;
 	private Deck deck;
-	private int currentPlayer;
-	private int winnerRound;
-	private Stack<Turn> turns;
-	private ArrayList<Command> commandList;
-	private CommandFactory cf;
-	private GameControl gc;
-	private final int WINNING_SCORE = 6000;
+	protected int currentPlayer;
+	protected int winnerRound;
+	protected Stack<Turn> turns;
+	protected ArrayList<Command> commandList;
+	protected CommandFactory cf;
+	protected GameControl gc;
+	protected final int WINNING_SCORE = 6000;
 	
 	public Game(ArrayList<Player> players, GameControl gc) {
 		this.players = players;
@@ -75,7 +74,6 @@ public class Game {
 			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
 			this.endTurn();
 		}else this.getCommand();
-		
 	}
 	
 	//player action
@@ -96,6 +94,7 @@ public class Game {
 		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has stashed "+s+"to Treasure Chest\n" +t.statString());
 		this.getCommand();
 	}
+	
 	public void withdraw(HashSet<Integer> index) {
 		Turn t = turns.peek();
 		try {
@@ -113,18 +112,21 @@ public class Game {
 		gc.sendToOtherPlayer("\n*"+players.get(currentPlayer).getName()+" has withdrawn "+s+"to Treasure Chest\n" +t.statString());
 		this.getCommand();
 	}
+	
 	public void lock(HashSet<Integer> index) {
 		Turn t = turns.peek();
 		t.lock(index);
 		gc.announcement("\n*Lock:\n"+t.statString());
 		this.getCommand();
 	}
+	
 	public void unlock(HashSet<Integer> index) {
 		Turn t = turns.peek();
 		t.unlock(index);
 		gc.announcement("\n*Unlock:\n"+t.statString());
 		this.getCommand();
 	}
+	
 	public void reroll() {
 		Turn t = turns.peek();
 		int flag = t.reroll();
@@ -192,11 +194,11 @@ public class Game {
 		this.turnStart();
 	}
 	
-	private void announceWinner(Player p) {
+	protected void announceWinner(Player p) {
 		gc.announceWinner(p);
 	}	
 
-	private void getCommand() {
+	protected void getCommand() {
 		cf = new CommandFactory(this);
 		Turn t = turns.peek();
 		String s = cf.getPrompt(t.getChest() != null);
@@ -217,7 +219,7 @@ public class Game {
 		c.execute(this);
 	}
 	
-	private void scoreChange(OneTurnScoreChange delta) {
+	protected void scoreChange(OneTurnScoreChange delta) {
 		if (delta.getRange() == OneTurnScoreChange.Range.SELF) {
 			players.get(currentPlayer).scoreChange(delta.getChange());
 			if (delta.getChange() < 0) {

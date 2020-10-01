@@ -21,6 +21,31 @@ public class Dice {
 		this.lock = false;
 	}
 	
+	public Dice(String s){
+		this.lock = false;
+		switch (s){
+		case "sk":
+			this.face = Face.SKULL;
+			this.lock = true;
+			break;
+		case "mo":
+			this.face = Face.MONKEY;
+			break;
+		case "pa":
+			this.face = Face.PARROT;
+			break;
+		case "sw":
+			this.face = Face.SWORD;
+			break;
+		case "co":
+			this.face = Face.COIN;
+			break;
+		case "di":
+			this.face = Face.DIAMOND;
+			break;
+		}
+	}
+	
 	public Face getFace() {return this.face;}
 	public Boolean isLock() {return lock;}
 	
