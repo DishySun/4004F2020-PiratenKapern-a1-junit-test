@@ -99,6 +99,7 @@ public class Turn {
 		for (Dice d: hand) {
 			if (!d.isLock()) rollCount++;
 		}
+		if (rollCount < 2) return -1;
 		int skulls = treasureInHand.get(Dice.Face.SKULL);
 		if (rollCount >=2) {
 			for (Dice d : hand) {
@@ -109,7 +110,7 @@ public class Turn {
 				if (skulls <= this.perviousSkullCount) return 2;
 				else this.perviousSkullCount = skulls;
 			}
-		}else {return -1;}
+		}
 		if (isDisqualified()) return 1;
 		else return 0;
 	}
@@ -268,6 +269,7 @@ public class Turn {
 		for (Dice d: hand) {
 			if (!d.isLock()) rollCount++;
 		}
+		if (rollCount < 2) return -1;
 		for (int i = 0; i < dice.size();i++) {
 			for (int j = 0; j < hand.size(); j++) {
 				if (!hand.get(j).isLock()) {
@@ -286,7 +288,7 @@ public class Turn {
 				if (skulls <= this.perviousSkullCount) return 2;
 				else this.perviousSkullCount = skulls;
 			}
-		}else {return -1;}
+		}
 		if (isDisqualified()) return 1;
 		else return 0;
 	}
