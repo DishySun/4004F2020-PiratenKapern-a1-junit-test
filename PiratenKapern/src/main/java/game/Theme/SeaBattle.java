@@ -51,8 +51,7 @@ public class SeaBattle implements Theme {
 		//check for Full Chest
 		if (map.get(Dice.Face.SKULL) == skullsFromCard &&
 			(map.get(Dice.Face.MONKEY) == 0 || map.get(Dice.Face.MONKEY) > 2) &&
-			(map.get(Dice.Face.PARROT) == 0 || map.get(Dice.Face.PARROT) > 2) &&
-			(map.get(Dice.Face.SWORD) == 0 || map.get(Dice.Face.SWORD) > 2))  score += 500;
+			(map.get(Dice.Face.PARROT) == 0 || map.get(Dice.Face.PARROT) > 2))  score += 500;
 		return new OneTurnScoreChange(OneTurnScoreChange.Range.SELF,score);
 	}
 

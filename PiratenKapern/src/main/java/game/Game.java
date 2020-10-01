@@ -73,7 +73,11 @@ public class Game {
 			gc.sendToCurrentPlayer("You have rolled 3 or more skulls, your turn ends.");
 			gc.sendToOtherPlayer(players.get(currentPlayer).getName()+" has rolled 3 or more skulls, turn ends.");
 			this.endTurn();
-		}else this.getCommand();
+		}else {
+			gc.sendToCurrentPlayer("Welcome to Skull Island! Get as much skulls as you can to reduce others' score!");
+			gc.sendToOtherPlayer(players.get(currentPlayer) + " have entered Skull Island. You score gonna be... :(");
+			this.getCommand();
+		}
 	}
 	
 	//player action

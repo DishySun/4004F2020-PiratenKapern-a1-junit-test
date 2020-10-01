@@ -85,6 +85,7 @@ public class Turn {
 		//Skull Island check
 		if (skulls > 3 && !(theme instanceof game.Theme.SeaBattle)) {
 			theme = new SkullIsland();
+			this.perviousSkullCount = skulls;
 		}
 		return isDisqualified();
 	}
@@ -98,7 +99,7 @@ public class Turn {
 		for (Dice d: hand) {
 			if (!d.isLock()) rollCount++;
 		}
-		int skulls = 0;
+		int skulls = treasureInHand.get(Dice.Face.SKULL);
 		if (rollCount >=2) {
 			for (Dice d : hand) {
 				d.roll();
@@ -253,6 +254,7 @@ public class Turn {
 		//Skull Island check
 		if (skulls > 3 && !(theme instanceof game.Theme.SeaBattle)) {
 			theme = new SkullIsland();
+			this.perviousSkullCount = skulls;
 		}
 		return isDisqualified();
 	}
@@ -275,7 +277,7 @@ public class Turn {
 				}
 			}
 		}
-		int skulls = 0;
+		int skulls = treasureInHand.get(Dice.Face.SKULL);
 		if (rollCount >=2) {
 			for (Dice d : hand) {
 				if (d.getFace() == Dice.Face.SKULL)skulls++;
