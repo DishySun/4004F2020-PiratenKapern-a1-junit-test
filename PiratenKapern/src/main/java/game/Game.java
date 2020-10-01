@@ -190,7 +190,7 @@ public class Game {
 			if (max >= this.WINNING_SCORE) this.announceWinner(winner);
 			else this.winnerRound = -1;
 		}else this.winnerRound--;
-		currentPlayer++;
+		currentPlayer = (currentPlayer + 1) % players.size();
 		this.turnStart();
 	}
 	

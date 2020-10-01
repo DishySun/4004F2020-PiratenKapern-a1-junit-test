@@ -111,7 +111,7 @@ public class ServerControlledGame extends Game{
 			}
 			else this.winnerRound = -1;
 		}else this.winnerRound--;
-		currentPlayer++;
+		currentPlayer = (currentPlayer + 1) % players.size();
 		this.turnStart();
 	}
 }

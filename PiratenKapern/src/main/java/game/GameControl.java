@@ -46,6 +46,7 @@ public class GameControl {
 	}
 	
 	public void announceWinner(Player p) {
+		System.out.println("\n*****" + p.getName() + " has won the game!*****The server shut down\n");
 		this.announcement("\n*****" + p.getName() + " has won the game!*****\n");
 		this.game.showScore();
 		this.announcement("game end");
