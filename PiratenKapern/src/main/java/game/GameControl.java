@@ -134,10 +134,6 @@ public class GameControl {
 			System.out.print("What dice will this player roll: ");
 			String diceString = new Scanner(System.in).nextLine();
 			String arg[] = diceString.trim().toLowerCase().split(" ");
-			if (arg.length != 8) {
-				System.err.println("need 8 dice");
-				continue;
-			}
 			ArrayList<Dice> dice = new ArrayList<Dice>();
 			for (String s : arg) {
 				if (!s.equals("sk") && !s.equals("mo") && !s.equals("pa") && !s.equals("sw") & !s.equals("co") && !s.equals("di")) {
@@ -146,7 +142,6 @@ public class GameControl {
 				}
 				dice.add(new Dice(s));
 			}
-			if (dice.size() != 8) continue;
 			return dice;
 		}
 	}

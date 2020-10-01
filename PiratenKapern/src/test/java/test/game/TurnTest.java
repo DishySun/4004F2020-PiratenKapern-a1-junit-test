@@ -342,7 +342,7 @@ public class TurnTest {
 		t.setCard(c);
 		int skull = 0,monkey = 0, parrot = 0, sword = 0, coin = 0, diamond = 0;
 		ArrayList<Dice> ds = new ArrayList<Dice>();
-		while (ds.size() < 6) {
+		while (ds.size() < 8) {
 			Dice d = new Dice();
 			d.roll();
 			switch (d.getFace()) {
@@ -384,7 +384,7 @@ public class TurnTest {
 			t.setCard(new entity.FortuneCard.Skull(2));
 			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == skull+2);
 		}else {
-			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == 0);
+			assertTrue(t.getTreasureInHand().get(Dice.Face.SKULL) == skull);
 			assertTrue(t.getTreasureInHand().get(Dice.Face.MONKEY) == 0);
 			assertTrue(t.getTreasureInHand().get(Dice.Face.PARROT) == 0);
 			assertTrue(t.getTreasureInHand().get(Dice.Face.SWORD) == 0);

@@ -33,6 +33,7 @@ public class NormalTest {
 				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
 				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
+			map.put(Dice.Face.SKULL, totalSkull);
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
@@ -61,6 +62,7 @@ public class NormalTest {
 				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
 				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
+			map.put(Dice.Face.SKULL, totalSkull);
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
@@ -91,6 +93,7 @@ public class NormalTest {
 				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
 				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
+			map.put(Dice.Face.SKULL, totalSkull);
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 			assertTrue(n.scoreCalculation(map, counts[i][7]).getRange() == OneTurnScoreChange.Range.SELF); 
@@ -115,6 +118,7 @@ public class NormalTest {
 				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
 				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
+			map.put(Dice.Face.SKULL, totalSkull);
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, counts[i][7]).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}

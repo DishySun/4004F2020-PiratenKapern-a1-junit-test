@@ -114,12 +114,9 @@ public class Turn {
 	}
 	
 	public void endTurn() {
-		calculateChest();
-		if (this.isDisqualified()) delta = theme.scoreCalculation(treasureInHand, this.card.getSkullsFromCard());
-		else {
-			calculateHand();
-			delta = theme.scoreCalculation(treasureInHand, this.card.getSkullsFromCard());
-		}
+		this.calculateHand();
+		this.calculateChest();
+		delta = theme.scoreCalculation(treasureInHand, this.card.getSkullsFromCard());
 		delta.applyScoreMultiplier(scoreMultiplier);
 	}
 	
@@ -192,9 +189,20 @@ public class Turn {
 	}
 	
 	private void calculateHand() {
-		for(Dice d : hand) {
-			int value = treasureInHand.get(d.getFace()) + 1;
-			treasureInHand.put(d.getFace(), value);
+		if (this.isDisqualified()) {
+			int skulls = this.treasureInHand.get(Dice.Face.SKULL);
+			for (Dice d : hand) {
+				if (d.getFace() == Dice.Face.SKULL) skulls++;
+			}
+			for (Dice.Face f: this.treasureInHand.keySet()) {
+				treasureInHand.put(f, 0);
+			}
+			treasureInHand.put(Dice.Face.SKULL,skulls);
+		}else {
+			for(Dice d : hand) {
+				int value = treasureInHand.get(d.getFace()) + 1;
+				treasureInHand.put(d.getFace(), value);
+			}
 		}
 	}
 	
@@ -258,7 +266,15 @@ public class Turn {
 		for (Dice d: hand) {
 			if (!d.isLock()) rollCount++;
 		}
-		this.hand = dice;
+		for (int i = 0; i < dice.size();i++) {
+			for (int j = 0; j < hand.size(); j++) {
+				if (!hand.get(j).isLock()) {
+					hand.set(j, dice.get(i));
+					hand.get(j).lock();
+					break;
+				}
+			}
+		}
 		int skulls = 0;
 		if (rollCount >=2) {
 			for (Dice d : hand) {
