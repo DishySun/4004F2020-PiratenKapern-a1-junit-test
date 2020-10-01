@@ -28,8 +28,10 @@ public class NormalTest {
 			{1,7,0,0,0,0,2000,0},
 			{0,8,0,0,0,0,4500,0}};
 		for (int i = 0; i < 8; i++) {
+			int totalSkull = counts[i][0];
 			for (int j = 0; j < 6; j++) {
-				map.put(Dice.Face.values()[j], counts[i][j]);
+				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
+				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
@@ -54,8 +56,10 @@ public class NormalTest {
 			{1,3,4,0,0,0,300,0},
 			{0,4,4,0,0,0,900,0}};
 		for (int i = 0; i < 9; i++) {
+			int totalSkull = counts[i][0];
 			for (int j = 0; j < 6; j++) {
-				map.put(Dice.Face.values()[j], counts[i][j]);
+				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
+				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
@@ -82,8 +86,10 @@ public class NormalTest {
 			{0,0,0,0,4,4,1700,0},
 			{0,0,0,0,3,5,1900,0}};
 		for (int i = 0; i < 11; i++) {
+			int totalSkull = counts[i][0];
 			for (int j = 0; j < 6; j++) {
-				map.put(Dice.Face.values()[j], counts[i][j]);
+				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
+				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
 			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
@@ -100,14 +106,16 @@ public class NormalTest {
 		int[][] counts = {
 			//[0-5]:dice number [6]expect score [7]skulls from card
 			{1,8,0,0,0,0,4500,1},
-			{3,7,0,0,0,0,2000,2},
+			{3,7,0,0,0,0,0,2},
 			{1,5,0,0,2,1,1300,1},
 			{2,6,1,1,0,0,1000,2}};
 		for (int i = 0; i < 4; i++) {
+			int totalSkull = counts[i][0];
 			for (int j = 0; j < 6; j++) {
-				map.put(Dice.Face.values()[j], counts[i][j]);
+				if(totalSkull >=3) map.put(Dice.Face.values()[j], 0);
+				else map.put(Dice.Face.values()[j], counts[i][j]);
 			}
-			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, 0).getChange());
+			System.out.println("["+i+"]except: "+counts[i][6]+ " result: "+n.scoreCalculation(map, counts[i][7]).getChange());
 			assertTrue(n.scoreCalculation(map,counts[i][7]).getChange() == counts[i][6]);
 		}
 	}
